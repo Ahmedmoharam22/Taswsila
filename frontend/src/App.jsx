@@ -17,6 +17,7 @@ import ClientDashboard from './pages/dashboard/ClientDashboard';
 import Trips from './pages/Trips';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import CustomBooking from './pages/CustomBooking';
 
 // مكون حماية المسارات
 const ProtectedRoute = ({ children, role }) => {
@@ -51,6 +52,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="custom-booking" element={<CustomBooking />} />
         </Route>
 
         {/* 2. داشبورد السائق (محمية لـ driver فقط) */}

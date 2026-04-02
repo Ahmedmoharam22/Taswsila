@@ -75,38 +75,41 @@ export const getUserProfile = async (req, res) => {
 
 // @desc    تحديث بيانات البروفايل (الاسم، الموبايل، البيو، بيانات السيارة)
 // @route   PUT /api/users/profile
-export const updateUserProfile = async (req, res) => {
+export const updateProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+    const { fullName, phone, carModel, preferredCities, bio } = req.body;
 
-    if (user) {
-      user.fullName = req.body.fullName || user.fullName;
-      user.phone = req.body.phone || user.phone;
-      user.bio = req.body.bio || user.bio;
-      user.avatar = req.body.avatar || user.avatar;
+    // 1. البيانات الأساسية (متاحة للكل)
+    const updateData = {
+      fullName: fullName || req.user.fullName,
+      phone: phone || req.user.phone,
+      bio: bio || req.user.bio
+    };
 
-      // تحديث بيانات السيارة لو المستخدم سواق
-      if (user.role === 'driver') {
-        user.carDetails = {
-          model: req.body.carModel || user.carDetails?.model,
-          color: req.body.carColor || user.carDetails?.color,
-          plateNumber: req.body.carPlate || user.carDetails?.plateNumber,
-        };
-      }
-
-      const updatedUser = await user.save();
-      res.json({
-        _id: updatedUser._id,
-        fullName: updatedUser.fullName,
-        email: updatedUser.email,
-        role: updatedUser.role,
-        phone: updatedUser.phone,
-        avatar: updatedUser.avatar,
-        carDetails: updatedUser.carDetails,
-        message: 'تم تحديث البروفايل بنجاح'
-      });
+    // 2. بيانات خاصة بالسائق فقط
+    if (req.user.role === 'driver') {
+      if (carModel) updateData.carModel = carModel;
+      if (preferredCities) updateData.preferredCities = preferredCities;
     }
+
+    // 3. التحديث في الداتابيز
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      { $set: updateData },
+      { new: true, runValidators: true }
+    ).select('-password');
+
+    res.status(200).json({
+      success: true,
+      message: "تم تحديث البيانات بنجاح ✨",
+      data: updatedUser
+    });
   } catch (error) {
-    res.status(500).json({ message: 'خطأ في تحديث البيانات', error: error.message });
+    res.status(500).json({
+      success: false,
+      message: "فشل تحديث البيانات",
+      error: error.message
+    });
+    console.log("DB Error:", error.message);
   }
 };

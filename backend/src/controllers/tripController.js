@@ -1,6 +1,5 @@
 import Trip from '../models/Trip.js';
-import Booking from '../models/Booking.js'; // 👈 ضروري عشان الداشبورد يشتغل
-
+import Booking from '../models/Booking.js'; 
 // @desc    إضافة رحلة جديدة (خاص بالسائق)
 // @route   POST /api/trips
 export const createTrip = async (req, res) => {
@@ -103,5 +102,33 @@ export const updateTripStatus = async (req, res) => {
     res.json({ success: true, message: 'تم تحديث حالة الرحلة', trip });
   } catch (error) {
     res.status(500).json({ message: 'خطأ في تحديث الحالة' });
+  }
+};
+
+
+export const searchCustomTrips = async (req, res) => {
+  try {
+    const { from, to, carType, ac, seatsNeeded } = req.query;
+
+    let query = { status: 'active' };
+
+    // فلترة ذكية: لو باعت مدينة واحدة أو الاتنين
+    if (from) query.fromCity = { $regex: from, $options: 'i' };
+    if (to) query.toCity = { $regex: to, $options: 'i' };
+
+    // فلترة المواصفات
+    if (carType) query.carType = carType;
+    if (ac !== undefined) query.isAirConditioned = ac === 'true';
+    
+    // لازم يكون فيه كراسي تكفي الطلب
+    if (seatsNeeded) query.availableSeats = { $gte: parseInt(seatsNeeded) };
+
+    const trips = await Trip.find(query)
+      .populate('driver', 'fullName avatar phone rating')
+      .sort('departureTime');
+
+    res.json({ success: true, count: trips.length, data: trips });
+  } catch (error) {
+    res.status(500).json({ message: 'خطأ في البحث المتقدم', error: error.message });
   }
 };

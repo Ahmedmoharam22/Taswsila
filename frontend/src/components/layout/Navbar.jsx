@@ -145,6 +145,7 @@ const Navbar = () => {
     { name: 'الرحلات', path: '/trips' },
     { name: 'عن المشروع', path: '/about' },
     { name: 'تواصل معنا', path: '/contact' },
+    { name: 'حجز خاص', path: '/custom-booking' },
   ];
 
   return (

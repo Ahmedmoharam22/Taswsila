@@ -21,10 +21,13 @@ app.get('/api/health', (req, res) => {
 import authRoutes from './routes/authRoutes.js';
 import tripRoutes from './routes/tripRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
+import customRequestRoutes from './routes/customRequestRoutes.js';
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/trips', tripRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/custom-requests', customRequestRoutes);
+
 
 
 

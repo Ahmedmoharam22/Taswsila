@@ -17,7 +17,9 @@ const tripSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     seatsBooked: { type: Number, default: 1 },
     bookedAt: { type: Date, default: Date.now }
-  }]
+  }],
+carType: { type: String, enum: ['Sedan', 'SUV', 'Van'], required: true },
+isAirConditioned: { type: Boolean, default: true },
 }, { timestamps: true });
 
 // Indexing للبحث السريع بالمدن (Performance Optimization)

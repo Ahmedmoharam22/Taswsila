@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, getUserProfile, updateUserProfile, login, getMe } from '../controllers/authController.js';
+import { register, getUserProfile, updateProfile, login, getMe } from '../controllers/authController.js';
 import { protect } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
@@ -12,7 +12,7 @@ router.post('/register', register);
 router.post('/login', login);
 router.route('/profile')
   .get(protect, getUserProfile)
-  .put(protect, updateUserProfile);
+  .put(protect, updateProfile);
 // @desc    جلب بيانات المستخدم الحالي (عشان الـ Auth Persistence في الفرونت)
 // @route   GET /api/auth/me
 router.get('/me', protect, getMe);

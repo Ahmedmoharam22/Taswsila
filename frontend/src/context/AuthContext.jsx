@@ -29,9 +29,12 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     window.location.href = '/login';
   };
-
+const updateUser = (userData) => {
+  setUser(userData);
+  localStorage.setItem('user', JSON.stringify(userData)); // تحديث التخزين المحلي
+};
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, login, logout, loading, isAuthenticated: !!user, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

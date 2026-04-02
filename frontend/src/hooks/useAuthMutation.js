@@ -21,7 +21,8 @@ export const useLoginMutation = () => {
     },
     onError: (error) => {
       // إظهار الرسالة اللي جاية من الـ Error Middleware اللي عملناه في الباك
-      alert(error.response?.data?.message || 'فشل تسجيل الدخول');
+      // alert(error.response?.data?.message || 'فشل تسجيل الدخول');
+      toast.error(error.response?.data?.message || 'فشل تسجيل الدخول');
     }
   });
 };
