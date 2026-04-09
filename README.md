@@ -1,66 +1,107 @@
-Tawsila (توصيله) | Full-Stack Transportation Platform
-A sophisticated MERN-stack application designed to bridge the gap between freelance drivers and passengers through real-time trip management, custom booking requests, and a dynamic dashboard system.
+# Tawsila (توصيله)
 
-Project Overview
-Tawsila is a logistics-focused platform that optimizes inter-city travel. It enables passengers to find existing trips or post "Custom Requests" that drivers can claim, creating a flexible marketplace for transportation.
+A full-stack MERN application that connects freelance drivers with passengers through real-time trip management, flexible booking, and role-based dashboards.
 
-Key Technical Features
-1. Dynamic Marketplace Logic
-Passenger Side: Search-and-filter system for scheduled trips and a "Custom Request" engine for specific travel needs.
+---
 
-Driver Side: Real-time access to available custom requests with a one-click "Claim" system that automatically generates trip schedules.
+## Overview
 
-2. Specialized Dashboards
-State Management: Leveraging React Query for server-state synchronization, ensuring data consistency across client and driver views without redundant API calls.
+Tawsila is a logistics platform built for inter-city travel. Passengers can browse and book scheduled trips or submit custom travel requests; drivers can view open requests and claim them to auto-generate trip listings — creating a dynamic, two-sided transportation marketplace.
 
-Role-Based Access Control (RBAC): Secure navigation and data filtering based on JWT-authenticated user roles (Client vs. Driver).
+---
 
-3. Profile & Asset Management
-Centralized profile management with field-level validation for vehicle details (for drivers) and personal contact information.
+## Features
 
-Technical Stack
-Category	Technology
-Frontend	React.js, Tailwind CSS, Lucide React, Framer Motion
-State Management	TanStack Query (React Query), Context API
-Backend	Node.js, Express.js
-Database	MongoDB (Mongoose ODM)
-Authentication	JWT (JSON Web Tokens) with Secure Cookie/Header storage
-Tooling	Vite, Axios, React Hook Form
-System Architecture & Flow
-The system follows a Controller-Service-Repository pattern (simplified) to ensure clean separation of concerns:
+### Passenger Experience
+- Search and filter scheduled trips by route, date, and availability
+- Submit custom travel requests for specific destinations or times
+- Real-time booking confirmation once a driver claims a request
 
-Auth Middleware: Validates sessions and attaches user identity to the request object (req.user).
+### Driver Experience
+- Live feed of open custom requests with one-click claiming
+- Automatic trip schedule generation upon request acceptance
+- Profile management for vehicle details and contact information
 
-Route Protection: Ensures only authorized roles can access specific endpoints (e.g., only drivers can accept custom requests).
+### Platform-Wide
+- **Role-Based Access Control (RBAC):** JWT-authenticated sessions with strict route and data access separation between `Client` and `Driver` roles
+- **Optimized Data Fetching:** TanStack Query (React Query) handles server-state synchronization, eliminating redundant API calls across dashboards
+- **API Efficiency:** MongoDB `.populate()` and `.select()` minimize payload size and improve response latency
 
-API Optimization: Use of MongoDB .populate() and .select() to minimize payload size and improve response times.
+---
 
-Installation & Setup
-Clone the repository
+## Tech Stack
 
-Bash
+| Layer | Technologies |
+|---|---|
+| Frontend | React.js, Tailwind CSS, Lucide React, Framer Motion |
+| State Management | TanStack Query, Context API |
+| Backend | Node.js, Express.js |
+| Database | MongoDB (Mongoose ODM) |
+| Authentication | JWT with secure cookie/header storage |
+| Tooling | Vite, Axios, React Hook Form |
+
+---
+
+## Architecture
+
+The backend follows a **Controller → Service → Repository** pattern to enforce clean separation of concerns:
+
+- **Auth Middleware** — Validates JWT tokens and attaches the authenticated user identity to `req.user`
+- **Route Protection** — Restricts endpoint access by role (e.g., only drivers may claim custom requests)
+- **Data Layer** — Mongoose queries are optimized with field selection and relation population to keep responses lean
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js ≥ 18
+- MongoDB instance (local or Atlas)
+
+### Clone the Repository
+
+```bash
 git clone https://github.com/Ahmedmoharam22/Taswsila.git
-Environment Configuration
-Create a .env file in the root directory:
+cd Taswsila
+```
 
-Code snippet
+### Environment Configuration
+
+Create a `.env` file in the root directory:
+
+```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secure_secret_key
-Install Dependencies
+```
 
-Bash
-# Backend & Frontend
+### Install Dependencies
+
+```bash
+# Install backend dependencies
 npm install
+
+# Install frontend dependencies
 cd client && npm install
-Run the Application
+```
 
-Bash
-# From root
+### Run the Application
+
+```bash
+# From the root directory
 npm run dev
-Future Roadmap
-Real-time Communication: Integrating Socket.io for instant notifications when a driver accepts a request.
+```
 
-Advanced Analytics: A financial tracking dashboard for drivers to monitor monthly earnings.
+---
 
-Geolocation: Integration with Google Maps API for precise distance calculation and routing.
+## Roadmap
+
+- **Real-Time Notifications** — Socket.io integration to push instant alerts when a driver accepts a request
+- **Earnings Dashboard** — Financial tracking panel for drivers to monitor trip history and monthly revenue
+- **Geolocation** — Google Maps API integration for distance calculation and route visualization
+
+---
+
+## License
+
+This project is open source. See [LICENSE](./LICENSE) for details.
