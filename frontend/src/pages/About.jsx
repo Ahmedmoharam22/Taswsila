@@ -11,8 +11,10 @@ import {
   Clock
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const About = () => {
+  const { t } = useTranslation();
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -21,27 +23,27 @@ const About = () => {
 
   const features = [
     { 
-      title: "أمان تام", 
-      desc: "نظام تقييم دقيق للسائقين والركاب لضمان رحلة آمنة ومريحة للجميع.", 
+      title: t('about.f1_title'), 
+      desc: t('about.f1_desc'), 
       icon: ShieldCheck,
       color: "bg-blue-50 text-blue-600"
     },
     { 
-      title: "سرعة الحجز", 
-      desc: "بضغطة زر واحدة تقدر تحجز مكانك وتعرف كل تفاصيل رحلتك فوراً.", 
+      title: t('about.f2_title'), 
+      desc: t('about.f2_desc'), 
       icon: Zap,
       color: "bg-amber-50 text-amber-600"
     },
     { 
-      title: "توفير حقيقي", 
-      desc: "بنساعدك توفر أكتر من 60% من تكاليف السفر بين المحافظات.", 
+      title: t('about.f3_title'), 
+      desc: t('about.f3_desc'), 
       icon: Heart,
       color: "bg-red-50 text-red-600"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-white font-sans" dir="rtl">
+    <div className="min-h-screen bg-white font-sans">
       
       {/* 1. Hero Section: القصة بدأت من هنا */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-slate-50/50">
@@ -51,20 +53,20 @@ const About = () => {
             {...fadeIn}
           >
             <h1 className="text-5xl md:text-6xl font-black text-slate-900 mb-6 leading-[1.2]">
-              إحنا مش مجرد أبلكيشن، <br/>
-              <span className="text-brand-600">إحنا مجتمع بيتحرك.</span>
+              {t('about.hero_p1')} <br/>
+              <span className="text-brand-600">{t('about.hero_p2')}</span>
             </h1>
             <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed mb-8">
-              "توصيلة" بدأت بفكرة بسيطة: ليه نسافر لوحدنا وندفع كتير، لما ممكن نشارك الرحلة، نوفر مصاريف، ونبني صداقات جديدة؟ هدفنا هو تطوير منظومة النقل التشاركي في مصر بأحدث التقنيات.
+              {t('about.hero_desc')}
             </p>
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-100 rounded-full shadow-sm">
                 <CheckCircle2 className="text-green-500" size={18} />
-                <span className="text-sm font-bold text-slate-700">دعم كامل للمحافظات</span>
+                <span className="text-sm font-bold text-slate-700">{t('about.support')}</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-100 rounded-full shadow-sm">
                 <Clock className="text-green-500" size={18} />
-                <span className="text-sm font-bold text-slate-700"> 24/7 في الخدمة   </span>
+                <span className="text-sm font-bold text-slate-700"> {t('about.hours')} </span>
               </div>
               
             </div>
@@ -92,7 +94,7 @@ const About = () => {
       {/* 2. Features Grid: ليه توصيلة؟ */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-black text-slate-900 mb-4">ليه تختار توصيلة؟</h2>
+          <h2 className="text-3xl font-black text-slate-900 mb-4">{t('about.why_choose')}</h2>
           <div className="w-20 h-1.5 bg-brand-600 mx-auto rounded-full"></div>
         </div>
 
@@ -117,14 +119,14 @@ const About = () => {
       {/* 4. Call to Action: النهاية */}
       <section className="pb-24 px-6 text-center">
         <motion.div {...fadeIn} className="max-w-3xl mx-auto bg-brand-50 p-12 rounded-[3.5rem] border border-brand-100">
-          <h2 className="text-3xl font-black text-slate-900 mb-4">مستعد تبدأ رحلتك؟</h2>
-          <p className="text-slate-600 font-bold mb-8 italic">"انضم لآلاف الركاب والسائقين اللي غيروا مفهوم السفر في مصر"</p>
+          <h2 className="text-3xl font-black text-slate-900 mb-4">{t('about.ready')}</h2>
+          <p className="text-slate-600 font-bold mb-8 italic">{t('about.join_quote')}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/register" className="px-10 py-4 bg-brand-600 text-white rounded-2xl font-black shadow-xl shadow-brand-200 hover:bg-brand-700 transition-all flex items-center justify-center gap-2">
-              سجل كراكب <ArrowRight size={20} />
+              {t('about.register_passenger')} <ArrowRight size={20} />
             </Link>
             <Link to="/register" className="px-10 py-4 bg-white text-brand-600 border-2 border-brand-600 rounded-2xl font-black hover:bg-brand-50 transition-all">
-              انضم كسائق
+              {t('about.register_driver')}
             </Link>
           </div>
         </motion.div>

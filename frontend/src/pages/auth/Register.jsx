@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 import { registerSchema } from '../../validations/authSchema';
 import { useRegisterMutation } from '../../hooks/useAuthMutation';
 import { FormInput } from '../../components/ui/FormInput';
+import { useTranslation } from 'react-i18next';
 
 const RegisterPage = () => {
+  const { t } = useTranslation();
   const { mutate, isPending } = useRegisterMutation();
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(registerSchema),
@@ -18,7 +20,7 @@ const RegisterPage = () => {
   const onSubmit = (data) => mutate(data);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 font-sans" dir="rtl">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 font-sans">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -28,8 +30,8 @@ const RegisterPage = () => {
           <div className="bg-brand-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-brand-600">
             <UserPlus size={32} />
           </div>
-          <h2 className="text-3xl font-black text-slate-900">إنشاء حساب جديد</h2>
-          <p className="text-slate-500 mt-2 font-medium">انضم لآلاف المستفيدين من "توصيلة"</p>
+          <h2 className="text-3xl font-black text-slate-900">{t('auth.register_title')}</h2>
+          <p className="text-slate-500 mt-2 font-medium">{t('auth.register_subtitle')}</p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -40,21 +42,21 @@ const RegisterPage = () => {
               onClick={() => setValue('role', 'client')}
               className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl transition-all font-bold ${selectedRole === 'client' ? 'bg-white text-brand-600 shadow-sm scale-105' : 'text-slate-500 hover:text-slate-700'}`}
             >
-              <UserCheck size={18} /> عميل
+              <UserCheck size={18} /> {t('auth.client')}
             </button>
             <button
               type="button"
               onClick={() => setValue('role', 'driver')}
               className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl transition-all font-bold ${selectedRole === 'driver' ? 'bg-white text-brand-600 shadow-sm scale-105' : 'text-slate-500 hover:text-slate-700'}`}
             >
-              <Car size={18} /> سائق
+              <Car size={18} /> {t('auth.driver')}
             </button>
           </div>
 
-          <FormInput icon={User} name="fullName" placeholder="الاسم الكامل" register={register} error={errors.fullName} />
-          <FormInput icon={Mail} name="email" type="email" placeholder="البريد الإلكتروني" register={register} error={errors.email} />
-          <FormInput icon={Phone} name="phone" placeholder="رقم الهاتف" register={register} error={errors.phone} />
-          <FormInput icon={Lock} name="password" type="password" placeholder="كلمة المرور" register={register} error={errors.password} />
+          <FormInput icon={User} name="fullName" placeholder={t('auth.fullname_placeholder')} register={register} error={errors.fullName} />
+          <FormInput icon={Mail} name="email" type="email" placeholder={t('auth.email_placeholder')} register={register} error={errors.email} />
+          <FormInput icon={Phone} name="phone" placeholder={t('auth.phone_placeholder')} register={register} error={errors.phone} />
+          <FormInput icon={Lock} name="password" type="password" placeholder={t('auth.password_placeholder')} register={register} error={errors.password} />
 
           <button
             type="submit"
@@ -62,12 +64,12 @@ const RegisterPage = () => {
             className={`w-full py-4 text-lg font-bold text-white rounded-2xl shadow-lg transition-all active:scale-95 mt-4
               ${isPending ? 'bg-slate-400 cursor-not-allowed' : 'bg-brand-600 hover:bg-brand-700 shadow-brand-200'}`}
           >
-            {isPending ? "جارِ إنشاء الحساب..." : "إنشاء الحساب"}
+            {isPending ? t('auth.creating') : t('auth.create_btn')}
           </button>
         </form>
 
         <p className="text-center mt-8 text-slate-600 font-medium">
-          لديك حساب بالفعل؟ <Link to="/login" className="text-brand-600 font-black hover:underline">سجل دخولك</Link>
+          {t('auth.have_account')} <Link to="/login" className="text-brand-600 font-black hover:underline">{t('auth.login_here')}</Link>
         </p>
       </motion.div>
     </div>

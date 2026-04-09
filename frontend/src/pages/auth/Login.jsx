@@ -112,8 +112,10 @@ import { Link } from 'react-router-dom';
 import { loginSchema } from '../../validations/authSchema';
 import { useLoginMutation } from '../../hooks/useAuthMutation';
 import { FormInput } from '../../components/ui/FormInput';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const { mutate, isPending } = useLoginMutation();
   
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -123,7 +125,7 @@ const LoginPage = () => {
   const onSubmit = (data) => mutate(data);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 font-sans" dir="rtl">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 font-sans">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -135,8 +137,8 @@ const LoginPage = () => {
           <div className="bg-brand-50 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-brand-600">
             <LogIn size={32} />
           </div>
-          <h2 className="text-3xl font-black text-slate-900">تسجيل الدخول</h2>
-          <p className="text-slate-500 mt-2 font-medium">أهلاً بك في منصة توصيلة</p>
+          <h2 className="text-3xl font-black text-slate-900">{t('auth.login_title')}</h2>
+          <p className="text-slate-500 mt-2 font-medium">{t('auth.login_subtitle')}</p>
         </div>
 
         {/* Form النموذج */}
@@ -145,7 +147,7 @@ const LoginPage = () => {
             icon={Mail}
             name="email"
             type="email"
-            placeholder="البريد الإلكتروني"
+            placeholder={t('auth.email_placeholder')}
             register={register}
             error={errors.email}
           />
@@ -154,7 +156,7 @@ const LoginPage = () => {
             icon={Lock}
             name="password"
             type="password"
-            placeholder="كلمة المرور"
+            placeholder={t('auth.password_placeholder')}
             register={register}
             error={errors.password}
           />
@@ -168,13 +170,13 @@ const LoginPage = () => {
                 : 'bg-brand-600 hover:bg-brand-700 shadow-brand-200'
               }`}
           >
-            {isPending ? "جارِ التحقق..." : "دخول"}
+            {isPending ? t('auth.verifying') : t('auth.login_btn')}
           </button>
         </form>
 
         {/* Footer التذييل */}
         <p className="text-center mt-8 text-slate-600 font-medium">
-          ليس لديك حساب؟ <Link to="/register" className="text-brand-600 font-black hover:underline">سجل الآن</Link>
+          {t('auth.no_account')} <Link to="/register" className="text-brand-600 font-black hover:underline">{t('auth.register_now')}</Link>
         </p>
       </motion.div>
     </div>

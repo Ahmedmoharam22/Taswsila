@@ -138,6 +138,7 @@
 
 
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Search, MapPin, Car, ArrowRightLeft } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -145,6 +146,7 @@ import { usePublicTrips } from '../hooks/usePublicTrips';
 import { TripCard } from '../components/dashboard/TripCard';
 
 const Home = () => {
+  const { t } = useTranslation();
   const [filters, setFilters] = useState({});
   const { register, handleSubmit } = useForm();
 
@@ -160,7 +162,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans" dir="rtl">
+    <div className="min-h-screen bg-white font-sans">
 
       {/* 1. Hero Section: الجاذبية البصرية */}
       <section className="relative pt-32 pb-20 px-4 overflow-hidden">
@@ -171,7 +173,7 @@ const Home = () => {
             transition={{ delay: 0.1 }}
             className="text-5xl md:text-7xl font-black text-slate-900 mb-6 leading-tight tracking-tighter"
           >
-            سافر بذكاء.. <br /> <span className="text-brand-600">وفر في مشوارك</span>
+            {t('hero.title_part1')} <br /> <span className="text-brand-600">{t('hero.title_part2')}</span>
           </motion.h1>
 
           <motion.p
@@ -180,7 +182,7 @@ const Home = () => {
             transition={{ delay: 0.2 }}
             className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto font-medium mb-12"
           >
-            احجز مكانك في رحلات السفر بين المحافظات بأسعار تبدأ من 50 جنيه. أمان، راحة، وتوفير.
+            {t('hero.description')}
           </motion.p>
           {/* 2. Search Bar: محرك البحث الاحترافي */}
           <motion.div
@@ -194,7 +196,7 @@ const Home = () => {
                 <MapPin className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-600" size={20} />
                 <input
                   {...register('from')}
-                  placeholder="من مدينة..."
+                  placeholder={t('hero.from_placeholder')}
                   className="w-full pr-12 pl-4 py-5 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-brand-600 focus:bg-white outline-none transition-all font-bold text-slate-900 placeholder:text-slate-400"
                 />
               </div>
@@ -207,13 +209,13 @@ const Home = () => {
                 <MapPin className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-600" size={20} />
                 <input
                   {...register('to')}
-                  placeholder="إلى مدينة..."
+                  placeholder={t('hero.to_placeholder')}
                   className="w-full pr-12 pl-4 py-5 bg-slate-50 rounded-2xl border-2 border-transparent focus:border-brand-600 focus:bg-white outline-none transition-all font-bold text-slate-900 placeholder:text-slate-400"
                 />
               </div>
 
               <button className="w-full md:w-auto bg-slate-900 hover:bg-slate-800 text-white px-10 py-5 rounded-2xl font-black shadow-xl transition-all flex items-center justify-center gap-2 active:scale-95">
-                <Search size={20} /> ابحث الآن
+                <Search size={20} /> {t('hero.search_btn')}
               </button>
             </form>
           </motion.div>
@@ -228,11 +230,11 @@ const Home = () => {
       <section className="max-w-7xl mx-auto px-6 py-20 border-t border-slate-50">
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-3xl font-black text-slate-900">الرحلات المتاحة</h2>
-            <p className="text-slate-400 font-bold mt-1 text-sm">استكشف أفضل العروض للمشاوير القادمة</p>
+            <h2 className="text-3xl font-black text-slate-900">{t('home.results_title')}</h2>
+            <p className="text-slate-400 font-bold mt-1 text-sm">{t('home.results_subtitle')}</p>
           </div>
           <span className="bg-slate-100 text-slate-600 px-5 py-2 rounded-full font-black text-xs uppercase tracking-tighter">
-            {trips?.length || 0} رحلة وجدت
+            {trips?.length || 0} {t('home.trips_found')}
           </span>
         </div>
 
@@ -255,15 +257,15 @@ const Home = () => {
             <div className="bg-slate-50 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6">
               <Search className="text-slate-300" size={32} />
             </div>
-            <h3 className="text-2xl font-black text-slate-900">مفيش رحلات حالياً</h3>
-            <p className="text-slate-500 font-bold">جرب تبحث بمدينة تانية أو ارجع في وقت لاحق</p>
+            <h3 className="text-2xl font-black text-slate-900">{t('home.no_trips')}</h3>
+            <p className="text-slate-500 font-bold">{t('home.try_different')}</p>
           </div>
         )}
       </section>
 
       {/* Footer Quote */}
       <section className="py-20 bg-slate-50/50 border-t border-slate-100 text-center">
-        <h3 className="text-xl font-black text-slate-400 italic">"توصيلة.. أمان، توفير، وصحبة حلوة"</h3>
+        <h3 className="text-xl font-black text-slate-400 italic">{t('home.footer_quote')}</h3>
       </section>
     </div>
   );

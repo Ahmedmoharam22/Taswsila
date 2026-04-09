@@ -18,6 +18,8 @@ import Trips from './pages/Trips';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import CustomBooking from './pages/CustomBooking';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // مكون حماية المسارات
 const ProtectedRoute = ({ children, role }) => {
@@ -32,7 +34,19 @@ const ProtectedRoute = ({ children, role }) => {
   return children;
 };
 
+
 function App() {
+ const { i18n } = useTranslation();
+
+  useEffect(() => {
+    // تحديث الاتجاه في الـ HTML tag
+    const dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = dir;
+    document.documentElement.lang = i18n.language;
+    
+    // سطر صياعة: عشان لو فيه مكتبات CSS معتمدة على الـ class
+    document.documentElement.className = dir; 
+  }, [i18n.language]); // دي لازم تكون موجودة ومراقبة للغة
   return (
     <Router>
       <Toaster

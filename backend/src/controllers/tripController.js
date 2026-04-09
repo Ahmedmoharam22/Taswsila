@@ -7,7 +7,7 @@ export const createTrip = async (req, res) => {
     const { fromCity, toCity, departureTime, price, totalSeats } = req.body;
 
     const trip = new Trip({
-      driver: req.user.id,
+      driver: req.user._id, // ضيف الأندر سكور هنا (_)
       fromCity,
       toCity,
       departureTime,
