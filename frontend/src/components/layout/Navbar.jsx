@@ -43,13 +43,11 @@ const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
           
           {/* Logo */}
-          {/* <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 group">
             <Logo />
-          </Link> */}
+          </Link>
           {/* النص هو اللي هيترجم */}
-      <span className="text-2xl font-black tracking-tight text-slate-800">
-        {t('brand')}
-      </span>
+     
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-1">

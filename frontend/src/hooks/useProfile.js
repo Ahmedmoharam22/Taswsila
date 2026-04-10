@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
-const { setUser } = useAuth(); // هات الـ setUser من الـ context
+  const { updateUser } = useAuth(); // استخدم updateUser عشان يحدّث الـ context والـ localStorage
   return useMutation({
     mutationFn: async (formData) => {
       const { data } = await api.put('/auth/profile', formData);
@@ -14,7 +14,7 @@ const { setUser } = useAuth(); // هات الـ setUser من الـ context
     onSuccess: (response) => {
       // تحديث بيانات اليوزر في الكاش فوراً عشان البروفايل يتغير بدون ريفريش
       queryClient.setQueryData(['user-profile'], response.data);
-      setUser(response.data); // 👈 تحديث اليوزر في الـ Context
+      updateUser(response.data); // 👈 تحديث اليوزر في الـ Context والـ localStorage
       toast.success(response.message);
     },
     onError: (err) => {

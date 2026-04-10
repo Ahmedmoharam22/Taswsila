@@ -8,4 +8,8 @@ export const tripSchema = z.object({
   }),
   price: z.string().transform((v) => Number(v)).pipe(z.number().min(1, 'السعر يجب أن يكون أكبر من 0')),
   totalSeats: z.string().transform((v) => Number(v)).pipe(z.number().min(1, 'حدد عدد الكراسي')),
+  carType: z.enum(['Sedan', 'SUV', 'Van'], {
+    errorMap: () => ({ message: 'الرجاء اختيار نوع السيارة' })
+  }),
+  isAirConditioned: z.boolean().default(true),
 });

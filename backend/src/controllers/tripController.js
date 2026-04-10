@@ -4,7 +4,7 @@ import Booking from '../models/Booking.js';
 // @route   POST /api/trips
 export const createTrip = async (req, res) => {
   try {
-    const { fromCity, toCity, departureTime, price, totalSeats } = req.body;
+    const { fromCity, toCity, departureTime, price, totalSeats, carType, isAirConditioned } = req.body;
 
     const trip = new Trip({
       driver: req.user._id, // ضيف الأندر سكور هنا (_)
@@ -13,7 +13,9 @@ export const createTrip = async (req, res) => {
       departureTime,
       price,
       totalSeats,
-      availableSeats: totalSeats // في البداية كل الكراسي متاحة
+      availableSeats: totalSeats, // في البداية كل الكراسي متاحة
+      carType,
+      isAirConditioned
     });
 
     await trip.save();

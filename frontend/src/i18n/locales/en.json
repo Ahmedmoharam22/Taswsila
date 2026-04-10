@@ -29,8 +29,12 @@
     "try_different": "Try searching for a different city or come back later",
     "footer_quote": "\"Tawsila.. Safety, savings, and great company\""
   },
-  "footer": {
-    "copyright": "© 2026 Tawsila Project - Serving our village youth ❤️"
+ "footer": {
+  "description": "Tawsila is the ultimate solution for our village students to reach their universities safely and comfortably.",
+  "quick_links": "Quick Links",
+  "contact_us": "Contact Us",
+  "rights": "All Rights Reserved © 2026 Tawsila",
+  "made_with": "Made with love for our students"
   },
   "trips": {
     "title": "Explore all trips",
@@ -136,5 +140,19 @@
     "create_btn": "Create Account",
     "have_account": "Already have an account?",
     "login_here": "Log in"
-  }
+  },
+  "stats": {
+    "trips": "Completed Trips",
+    "drivers": "Trusted Drivers",
+    "users": "Active Users"
+  },
+  "how_it_works": {
+  "title": "How Tawsila Works",
+  "step1_title": "Search for a Trip",
+  "step1_desc": "Select your location and destination and see available trips for your travel time.",
+  "step2_title": "Book Your Seat",
+  "step2_desc": "Choose the driver that suits you and book your seat with a click.",
+  "step3_title": "Arrive Safely",
+  "step3_desc": "Meet the driver on time, and follow your trip until you reach your destination."
+}
 }

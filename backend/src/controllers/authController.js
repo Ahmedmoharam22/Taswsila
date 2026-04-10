@@ -79,17 +79,16 @@ export const updateProfile = async (req, res) => {
   try {
     const { fullName, phone, carModel, preferredCities, bio } = req.body;
 
-    // 1. البيانات الأساسية (متاحة للكل)
-    const updateData = {
-      fullName: fullName || req.user.fullName,
-      phone: phone || req.user.phone,
-      bio: bio || req.user.bio
-    };
+    // 1. البيانات الأساسية (متاحة للكل) - نستخدم ?? عشان نسمح بحذف الحقول زي البيو
+    const updateData = {};
+    if (fullName !== undefined) updateData.fullName = fullName;
+    if (phone !== undefined) updateData.phone = phone;
+    if (bio !== undefined) updateData.bio = bio;
 
-    // 2. بيانات خاصة بالسائق فقط
+    // 2. بيانات خاصة بالسائق فقط - الحقل الصح هو carDetails.model مش carModel
     if (req.user.role === 'driver') {
-      if (carModel) updateData.carModel = carModel;
-      if (preferredCities) updateData.preferredCities = preferredCities;
+      if (carModel !== undefined) updateData['carDetails.model'] = carModel;
+      if (preferredCities !== undefined) updateData.preferredCities = preferredCities;
     }
 
     // 3. التحديث في الداتابيز
