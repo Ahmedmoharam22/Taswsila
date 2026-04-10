@@ -47,7 +47,7 @@ Tawsila is a logistics platform built for inter-city travel. Passengers can brow
 | Database | MongoDB (Mongoose ODM) |
 | Authentication | JWT with secure cookie/header storage |
 | Tooling | Vite, Axios, React Hook Form |
-
+|UI/UX|Fully responsive components with Framer Motion animations and RTL support.| 
 ---
 
 ## Architecture
