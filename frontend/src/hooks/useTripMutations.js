@@ -13,6 +13,18 @@ export const useDriverDashboard = () => {
   });
 };
 
+// جلب تفاصيل رحلة واحدة
+export const useTripDetails = (id) => {
+  return useQuery({
+    queryKey: ['trip', id],
+    queryFn: async () => {
+      const { data } = await api.get(`/trips/${id}`);
+      return data;
+    },
+    enabled: !!id, // لا تعمل إلا إذا كان الـ id موجود
+  });
+};
+
 // إنشاء رحلة جديدة
 export const useCreateTrip = () => {
   const queryClient = useQueryClient();

@@ -20,6 +20,7 @@ import Contact from './pages/Contact';
 import CustomBooking from './pages/CustomBooking';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import TripDetails from './pages/TripDetails';
 
 // مكون حماية المسارات
 const ProtectedRoute = ({ children, role }) => {
@@ -67,6 +68,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="custom-booking" element={<CustomBooking />} />
+          <Route path="trip-details/:id" element={<TripDetails />} />
         </Route>
 
         {/* 2. داشبورد السائق (محمية لـ driver فقط) */}
@@ -83,6 +85,7 @@ function App() {
           <Route path="add-trip" element={<AddTrip />} />
           <Route path="profile" element={<Profile />} />
           <Route path="trip-details/:id" element={<TripBookings />} />
+          {/* <Route path="trip-details/:id" element={<TripDetails />} /> */}
         </Route>
 
         {/* 3. داشبورد العميل (محمية لـ client فقط) */}

@@ -1,8 +1,9 @@
 import { useState, useMemo } from 'react';
-import { MapPin, Users, Calendar, CircleDollarSign, ArrowRight, CreditCard, CheckCircle2, Ticket } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom'; 
-import { useAuth } from '../../context/AuthContext'; 
+import { MapPin, Users, Calendar, CircleDollarSign, ArrowRight, CreditCard, CheckCircle2, Ticket, Navigation } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import BookingModal from '../common/BookingModal';
+import { t } from 'i18next';
 
 export const TripCard = ({ trip, isPublicView = false }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,7 +12,7 @@ export const TripCard = ({ trip, isPublicView = false }) => {
 
   // فحص هل العميل الحالي حاجز في الرحلة دي قبل كدا؟
   const isAlreadyBooked = useMemo(() => {
-    return user?.bookings?.some(booking => 
+    return user?.bookings?.some(booking =>
       (booking.trip?._id === trip._id || booking.trip === trip._id)
     );
   }, [user, trip._id]);
@@ -19,7 +20,7 @@ export const TripCard = ({ trip, isPublicView = false }) => {
   return (
     <>
       <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group hover:shadow-2xl hover:shadow-brand-100/20 transition-all duration-500">
-        
+
         {/* Header: Cities & Status */}
         <div className="flex justify-between items-start mb-4">
           <div className="flex gap-4 items-center">
@@ -33,9 +34,8 @@ export const TripCard = ({ trip, isPublicView = false }) => {
               </p>
             </div>
           </div>
-          <span className={`px-4 py-1.5 rounded-full text-[10px] font-black ${
-            trip.status === 'active' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-          }`}>
+          <span className={`px-4 py-1.5 rounded-full text-[10px] font-black ${trip.status === 'active' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+            }`}>
             {trip.status === 'active' ? 'نشطة' : 'ملغاة'}
           </span>
         </div>
@@ -62,7 +62,7 @@ export const TripCard = ({ trip, isPublicView = false }) => {
             <>
               {isAlreadyBooked ? (
                 /* ✅ حالة تم الحجز مسبقاً */
-                <button 
+                <button
                   onClick={() => navigate('/client-dashboard')}
                   className="w-full bg-green-50 text-green-600 py-4 rounded-2xl font-black text-sm border-2 border-green-100 flex items-center justify-center gap-2 hover:bg-green-100 transition-all"
                 >
@@ -70,9 +70,9 @@ export const TripCard = ({ trip, isPublicView = false }) => {
                 </button>
               ) : (
                 /* 🎫 حالة طلب الحجز */
-                <button 
+                <button
                   onClick={() => {
-                    if(!isAuthenticated) return navigate('/login');
+                    if (!isAuthenticated) return navigate('/login');
                     setIsModalOpen(true);
                   }}
                   className="w-full bg-brand-600 text-white py-4 rounded-2xl font-black text-sm hover:bg-brand-700 transition-all shadow-lg shadow-brand-100 flex items-center justify-center gap-2 active:scale-95"
@@ -83,21 +83,30 @@ export const TripCard = ({ trip, isPublicView = false }) => {
             </>
           ) : (
             /* رابط السواق */
-            <Link 
-              to={`/driver-dashboard/trip-details/${trip._id}`} 
-              className="flex items-center justify-between group/link text-brand-600 font-black text-sm p-2 hover:bg-brand-50 rounded-xl transition-all"
-            >
-              عرض الركاب والحجوزات 
-              <ArrowRight size={18} className="group-hover/link:translate-x-[-4px] transition-transform" />
-            </Link>
+            <>
+              <Link
+                to={`/driver-dashboard/trip-details/${trip._id}`}
+                className="flex items-center justify-between group/link text-brand-600 font-black text-sm p-2 hover:bg-brand-50 rounded-xl transition-all"
+              >
+                عرض الركاب والحجوزات
+                <ArrowRight size={18} className="group-hover/link:translate-x-[-4px] transition-transform" />
+              </Link>
+              <Link
+                to={`/trip-details/${trip._id}`}
+                className="flex items-center justify-center gap-2 w-full py-3 bg-brand-50 text-brand-600 rounded-xl font-black text-sm hover:bg-brand-600 hover:text-white transition-all group"
+              >
+                <Navigation size={18} className="group-hover:animate-pulse" />
+                {t('trips.track_live')}
+              </Link>
+            </>
           )}
         </div>
       </div>
 
-      <BookingModal 
-        trip={trip} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <BookingModal
+        trip={trip}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </>
   );
