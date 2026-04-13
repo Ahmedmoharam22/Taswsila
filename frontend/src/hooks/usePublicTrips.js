@@ -6,7 +6,8 @@ export const usePublicTrips = (filters = {}) => {
     queryKey: ['public-trips', filters],
     queryFn: async () => {
       const { data } = await api.get('/trips', { params: filters });
-      return data;
+      return data; // { trips, pagination, success }
     },
+    keepPreviousData: true, // عشان اليوزر ميحسش بليفل Loading وهو بيقلب الصفحات
   });
 };

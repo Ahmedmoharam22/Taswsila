@@ -15,9 +15,7 @@ const Home = () => {
       {/* 3. Stats Bar */}
       <StatsBar />
       {/* 4. Result Section */}
-      <ResultsSection />
-      {/* 5. Footer */}
-      <Footer />
+      <ResultsSection />    
     </div>
   );
 };

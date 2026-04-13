@@ -25,7 +25,7 @@ export const useCreateTrip = () => {
     onSuccess: () => {
       // تحديث قائمة الرحلات أوتوماتيكياً أول ما الرحلة تضاف
       queryClient.invalidateQueries(['driver-trips']);
-      toast.success('تمت إضافة الرحلة بنجاح! طريقتك السلامة 🏎️');
+      toast.success('تمت إضافة الرحلة بنجاح! رحلة سعيدة');
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || 'فشل في إضافة الرحلة');

@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import { useTranslation } from 'react-i18next';
+import Footer from './Footer';
 
 const MainLayout = () => {
   const { t } = useTranslation();
@@ -11,9 +12,7 @@ const MainLayout = () => {
       <main className="flex-grow pt-16">
         <Outlet />
       </main>
-      <footer className="bg-gray-900 text-white text-center py-6">
-        <p>{t('footer.copyright')}</p>
-      </footer>
+      <Footer />
     </div>
   );
 };

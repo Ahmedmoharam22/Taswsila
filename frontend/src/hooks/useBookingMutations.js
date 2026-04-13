@@ -28,7 +28,7 @@ export const useCreateBooking = () => {
       // تحديث بيانات الرحلات عشان عدد الكراسي المتاحة ينقص فوراً
       queryClient.invalidateQueries(['public-trips']);
       queryClient.invalidateQueries(['client-bookings']);
-      toast.success('تم الحجز بنجاح! رحلة سعيدة 🚐✨');
+      toast.success('تم الحجز بنجاح! رحلة سعيدة');
     },
     onError: (error) => {
       toast.error(error.response?.data?.message || 'عذراً، حدث خطأ في الحجز');

@@ -19,3 +19,17 @@ body {
   font-family: var(--font-sans);
   @apply bg-slate-50 text-slate-900;
 }
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  cursor: pointer;
+}
+
+button:disabled,
+[type='button']:disabled,
+[type='reset']:disabled,
+[type='submit']:disabled {
+  cursor: not-allowed;
+}

@@ -8,7 +8,7 @@ import { MapPin, ArrowRightLeft, Search } from "lucide-react";
 const HeroSection = () => { 
     const { t } = useTranslation();
   const { register, handleSubmit } = useForm();
-  const { data: trips, isLoading } = usePublicTrips({});
+  const { data, isLoading } = usePublicTrips({ limit: 1 });
 
   const onSearch = (data) => {
     console.log(data);

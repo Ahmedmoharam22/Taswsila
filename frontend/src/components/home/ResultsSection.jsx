@@ -1,11 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { usePublicTrips } from "../../hooks/usePublicTrips";
-import { Search } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import { TripCard } from "../dashboard/TripCard";
+import { Link } from "react-router-dom";
 
 const ResultsSection = () => {
     const { t } = useTranslation();
-    const { data: trips, isLoading } = usePublicTrips({});
+    const { data, isLoading } = usePublicTrips({ limit: 6 });
+    const trips = data?.trips;
+
     return (
         <section className="max-w-7xl mx-auto px-6 py-20 border-t border-slate-50">
         <div className="flex items-center justify-between mb-12">
@@ -14,7 +17,7 @@ const ResultsSection = () => {
             <p className="text-slate-400 font-bold mt-1 text-sm">{t('home.results_subtitle')}</p>
           </div>
           <span className="bg-slate-100 text-slate-600 px-5 py-2 rounded-full font-black text-xs uppercase tracking-tighter">
-            {trips?.length || 0} {t('home.trips_found')}
+            {data?.pagination?.total || 0} {t('home.trips_found')}
           </span>
         </div>
 
@@ -25,11 +28,25 @@ const ResultsSection = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {trips?.map((trip) => (
-              <TripCard key={trip._id} trip={trip} isPublicView={true} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {trips?.map((trip) => (
+                <TripCard key={trip._id} trip={trip} isPublicView={true} />
+              ))}
+            </div>
+
+            {trips?.length > 0 && (
+              <div className="mt-16 text-center">
+                <Link 
+                  to="/trips" 
+                  className="inline-flex items-center gap-3 bg-slate-900 text-white px-10 py-5 rounded-2xl font-black shadow-xl hover:bg-brand-600 hover:-translate-y-1 transition-all active:scale-95 group"
+                >
+                  {t('home.show_all')}
+                  <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+            )}
+          </>
         )}
 
         {!isLoading && trips?.length === 0 && (

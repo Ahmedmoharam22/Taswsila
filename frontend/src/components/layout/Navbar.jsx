@@ -37,8 +37,8 @@ const Navbar = () => {
       <div 
         className={`max-w-7xl mx-auto transition-all duration-500 rounded-[2rem] 
         ${scrolled 
-          ? 'bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-slate-200/50 px-6 py-1' 
-          : 'bg-transparent px-2 py-4'}`}
+          ? 'bg-white/80 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-white/20 px-6 py-1' 
+          : 'bg-transparent border border-transparent px-2 py-4'}`}
       >
         <div className="flex justify-between h-16 items-center">
           

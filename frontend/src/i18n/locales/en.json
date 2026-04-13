@@ -27,7 +27,13 @@
     "trips_found": "trips found",
     "no_trips": "No trips available right now",
     "try_different": "Try searching for a different city or come back later",
+    "show_all": "Show All Trips",
     "footer_quote": "\"Tawsila.. Safety, savings, and great company\""
+  },
+  "pagination": {
+    "next": "Next",
+    "prev": "Previous",
+    "page_of": "Page {{current}} of {{total}}"
   },
  "footer": {
   "description": "Tawsila is the ultimate solution for our village students to reach their universities safely and comfortably.",

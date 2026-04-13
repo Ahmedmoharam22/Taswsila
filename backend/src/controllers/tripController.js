@@ -29,7 +29,7 @@ export const createTrip = async (req, res) => {
 // @route   GET /api/trips
 export const getAllTrips = async (req, res) => {
   try {
-    const { from, to, date, minPrice, maxPrice } = req.query;
+    const { from, to, date, minPrice, maxPrice, page = 1, limit = 10 } = req.query;
     
     // الفلتر الأساسي: الرحلات النشطة واللي فيها كراسي
     let query = { status: 'active', availableSeats: { $gt: 0 } };
@@ -55,11 +55,25 @@ export const getAllTrips = async (req, res) => {
       if (maxPrice) query.price.$lte = Number(maxPrice);
     }
 
+    const skip = (Number(page) - 1) * Number(limit);
+    const total = await Trip.countDocuments(query);
+
     const trips = await Trip.find(query)
       .populate('driver', 'fullName phone avatar carDetails')
-      .sort('departureTime'); // ترتيب بالأقرب وقتياً
+      .sort('departureTime')
+      .skip(skip)
+      .limit(Number(limit));
 
-    res.json(trips);
+    res.json({
+      success: true,
+      trips,
+      pagination: {
+        total,
+        page: Number(page),
+        pages: Math.ceil(total / Number(limit)),
+        limit: Number(limit)
+      }
+    });
   } catch (err) {
     res.status(500).json({ message: 'خطأ في جلب البيانات' });
   }
